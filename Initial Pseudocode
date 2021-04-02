@@ -1,0 +1,27 @@
+%Written by Katie Yetter
+%April 2, 2021
+
+%First: initiate random generated color sequence
+% r=red; b=blue; p=purple; o=orange;
+
+generatedcolors = randi 'rbpo';
+numguesses = 0;
+
+disp('I have chosen four colors.');
+disp('Guess the color and the position. You have ten tries.');
+disp('Welcome to Mastermind.');
+
+guess = input('Guess: ');
+while guess ~= generatedcolors
+  numguesses = numguesses + 1;
+  if numguesses == generated colors
+    disp('Congrats!');
+    fprintf('It took you %d guesses. You won!, numguesses');
+   end
+end
+
+
+%Need to figure out how & when to display "that is incorrect" message
+%How do we separate correct color with  correct position?
+%How do we compare the user's guess with the computer?
+%Create Game Instructions
