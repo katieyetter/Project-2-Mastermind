@@ -3,8 +3,8 @@
 
 %User Code
 
-%First: initiate random generated color sequence
-% r=red; b=blue; p=purple; o=orange;
+%Randomly generated ordered sequence of four colors
+%Should be saved for entire game
 color_vec = strings(1,4);
 generatedcolors = randi (4,4,1);
 for ii = 1:4
@@ -33,9 +33,43 @@ user_guess(1) = input('Color 1: ','s');
 user_guess(2) = input('Color 2: ','s');
 user_guess(3) = input('Color 3: ','s');
 user_guess(4) = input('Color 4: ','s');
-disp(user_guess);
+disp(user_guess)
 
+white_dots = zeros(1,4);
 for ii = 1:4
-    white_dots = strcmp(user_guess(ii),color_vec(ii));
-    disp(white_dots);
+    white_dots (ii) = strcmp(user_guess(ii),color_vec(ii));
+    
 end
+disp('white dots are')
+disp(white_dots); %correct color and position
+disp('num white is')
+num_white = sum(white_dots);
+disp(num_white);
+
+unmatch_guess = strings(1,(4-num_white));
+unmatch_vec = strings(1,(4-num_white));
+incorrect_vec = find(~white_dots);
+disp('incorrect vec is');
+disp(incorrect_vec);
+
+vec_count = 1;
+for ii = 1:length(incorrect_vec)
+    unmatch_guess(vec_count) = user_guess(incorrect_vec(ii));
+    unmatch_vec (vec_count) = color_vec(incorrect_vec(ii));
+    vec_count = vec_count + 1;
+end
+
+num_red = 0;
+for ii = 1:length(unmatch_guess)
+    for jj = 1:length(unmatch_vec)
+        if strcmp(unmatch_guess(ii), unmatch_vec(jj))
+            num_red = num_red + 1;
+            unmatch_vec(jj) = "";
+        end
+    end
+end
+disp('num white is');
+disp(num_white);
+disp('num red is');
+disp(num_red);
+
