@@ -1,0 +1,39 @@
+% looked up global & persistent functions...are they needed? 
+
+function scoretotal=scoreme(guess,gameans)
+global drawboard
+
+                                % Keep track of the number of guesses
+
+persistent numguess
+if isempty(numguess)
+    numguess=0;
+end
+numguess=numguess+1;
+
+                                % Get the current game image
+puzzle=getpuzzle(gameans);
+
+                                % Check to be sure the user hasn't made too many guesses.
+if numguess > gameguessLimit+1
+    error('You have exceeded the maximum mumber of guesses.');
+end
+if isempty(guess)
+    error('Your guess is empty.')
+end
+if max(guess) > gamenumColors
+    error('Your guess is an invalid color.');
+end
+if length(guess)~=length(gamesolution)
+    error('Your guess has the wrong number of pegs.');
+end
+
+% Present the final score
+[insert colors] = calcpegs(guess, solution);
+if drawboard
+  disp(guess,gamenumColors,gamesolution,numguess,r,b,p,o)
+end
+
+score = {r,b,p,o, numguess};
+scoretotal = score;
+
