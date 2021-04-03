@@ -21,6 +21,9 @@ while guess ~= generatedcolors
 end
 
 
+
+
+
 %Need to figure out how & when to display "that is incorrect" message
 %How do we separate correct color with  correct position?
 %How do we compare the user's guess with the computer?
