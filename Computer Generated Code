@@ -4,22 +4,41 @@
 %First: initiate random generated color sequence
 % r=red; b=blue; p=purple; o=orange;
 
-generatedcolors = randi 'rbpo';
+setColors = ['r', 'b', 'p', 'o']
+pattern = randi(length(setColors), 1, 4)
+generatedcolors = ""
+for value = 1:length(pattern)
+  generatedcolors = [generatedcolors, setColors(pattern(value))];
+end
 numguesses = 0;
 
+rcount = length(find('r'))
+bcount = length(find('b'))
+pcount = length(find('p'))
+ocount = length(find('o'))
+
+ 
 disp('I have chosen four colors.');
 disp('Guess the color and the position. You have ten tries.');
 disp('Welcome to Mastermind.');
 
-guess = input('Guess: ');
+ii = length(generatedcolors)
 while guess ~= generatedcolors
+  correctposition = 0
+  guess = input('Guess: ');
   numguesses = numguesses + 1;
-  if numguesses == generated colors
+  for letter = 1:length(generatedcolors)
+    if generatedcolors(letter) == guess(letter)
+    correctposition = correctposition + 1
+    end
+  end
+  %for loop to check user input -- find number of times color appears in input
+  if rcount <= userinputrcount
+    correctColor + rcount
+    %add other colors here
+end
     disp('Congrats!');
     fprintf('It took you %d guesses. You won!, numguesses');
-   end
-end
-
 
 
 
