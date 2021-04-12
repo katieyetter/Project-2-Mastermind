@@ -17,7 +17,6 @@ bcount = length(find('b'))
 pcount = length(find('p'))
 ocount = length(find('o'))
 
- 
 disp('I have chosen four colors.');
 disp('Guess the color and the position. You have ten tries.');
 disp('Welcome to Mastermind.');
@@ -32,10 +31,19 @@ while guess ~= generatedcolors
     correctposition = correctposition + 1
     end
   end
-  %for loop to check user input -- find number of times color appears in input
+  
+                           %for loop to check user input -- find number of times color appears in input
+  for userinputrcount
+  
   if rcount <= userinputrcount
     correctColor + rcount
-    %add other colors here
+  elseif bcount <= userinputbcount
+    correctColor + bcount
+  elseif pcount <= userinputpcount
+    correctColor + pcount
+  elseif ocount <= ocount
+    correctColor + ocount
+  end
 end
     disp('Congrats!');
     fprintf('It took you %d guesses. You won!, numguesses');
@@ -44,6 +52,5 @@ end
 
 
 %Need to figure out how & when to display "that is incorrect" message
-%How do we separate correct color with  correct position?
-%How do we compare the user's guess with the computer?
-%Create Game Instructions
+
+
