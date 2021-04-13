@@ -15,58 +15,53 @@ grey = white / 2;
 %%store pixels of screen
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 Screen('TextSize', window, 70);
-Screen('TextFont', window, 'Courier');
+Screen('TextFont', window, 'Times');
 DrawFormattedText(window, 'Mastermind',...
-'center', screenYpixels * 0.3, [0 0 1]);
-Screen('Flip', window);
-KbStrokeWait;
+screenXpixels * 0.1, screenYpixels * 0.1, white);
+
 
 %how to play button and script
+%%script
+instructions = 'You have 10 opportunities \n to guess the code! \n After every try \n you will see a green dot \n if you guessed the \n correct position and color \n or a white dot if \n you guessed incorrectly';
+keylegend = '\n click y for a yellow circle \n click r for a red circle \n click b for a blue circle \n click g for a green circle';
+[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+Screen('TextSize', window, 30);
+Screen('TextFont', window);
+DrawFormattedText(window, [instructions,keylegend],...
+screenXpixels * 0.1, screenYpixels * 0.3, white);
+%%button for how to play
 
 
 %board game 
-
 %%rectangle outline
-
-%%rectangle for each try
 % Get the centre coordinate of the window
 [xCenter, yCenter] = RectCenter(windowRect);
-
 % Make a base Rect of 200 by 200 pixels
-baseRect = [0 0 200 200];
-
+baseRect = [0 0 200 280];
 % Screen X positions of our three rectangles
-squareXpos = [screenXpixels * 0.25...
-    screenXpixels * 0.5 screenXpixels * 0.75];
+squareXpos = [screenXpixels * 0.5];
 numSqaures = length(squareXpos);
-
-% Set the colors to Red, Green and Blue
-allColors = [1 0 0; 0 1 0; 0 0 1];
-
 % Make a multiplier to modulate the size of our squares
-sizeChanger = [1 3 1];
+sizeChanger = [3];
 % Make our rectangle coordinates
-allRects = nan(4, 3);
+Rect = nan(4, 3);
 for i = 1:numSqaures
-    allRects(:, i) = CenterRectOnPointd(baseRect .* sizeChanger(i),...
+    Rect(:, i) = CenterRectOnPointd(baseRect .* sizeChanger(i),...
         squareXpos(i), yCenter);
 end
 % Draw the rect to the screen
-Screen('FillRect', window, allColors, allRects);
-
-
-%%four dots per try
-dotColor = [1 0 0];
-dotXpos = rand * screenXpixels;
-dotYpos = rand * screenYpixels;
-dotSizePix = 20;
-%top left
-Screen('DrawDots', window, [dotXpos; dotYpos], dotSizePix, dotColor, [],2);
-%top right 
-Screen('DrawDots', window, [dotXpos dotXpos + 15; dotYpos dotYpos],dotSizePix, dotColor, [], 2);
-Screen('Flip', window);
+Screen('FillRect', window, black, Rect);
 
 
 %circles and keys that correspond to each color
+dotXpos = screenXpixels * 0.8;
+dotYpos = screenYpixels + 290;
+buttonSize = 50;
+Screen('DrawDots', window, [dotXpos + 50; dotYpos], buttonSize, [0 1 0]);
+Screen('DrawDots', window, [dotXpos + 100; dotYpos], buttonSize, [1 0 0]);
+Screen('DrawDots', window, [dotXpos + 150; dotYpos], buttonSize, [0 0 1]);
+Screen('DrawDots', window, [dotXpos + 175; dotYpos], buttonSize, [0 1 1]);
+
+Screen('Flip', window);
 
 %exit button 
