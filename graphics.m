@@ -51,26 +51,22 @@ DrawFormattedText(window, 'Exit', 1540, 605, black);
 %board game 
 %%rectangle outline
 [xCenter, yCenter] = RectCenter(windowRect);
-baseRect = [0 0 200 280];
-squareXpos = [screenXpixels * 0.5];
+baseRect = [0 0 600 840];
+squareXpos = screenXpixels * 0.5;
 numSqaures = length(squareXpos);
-sizeChanger = [3];
 % Make our rectangle coordinates
 Rect = nan(4, 3);
-for i = 1:numSqaures
-    Rect(:, i) = CenterRectOnPointd(baseRect .* sizeChanger(i),...
-        squareXpos(i), yCenter);
-end
-% Draw the rect to the screen
+Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter);
 Screen('FillRect', window, black, Rect);
 
 %%trial rectangles
-eachrect = [0 0 150 75];
-ycor = 717;
+eachrect = [0 0 330 75];
+ycor = 217;
+trialRect = nan(4,3);
 for i = 1:10 
-centeredRect = CenterRectOnPointd(eachrect, xCenter, ycor + 80);
+    trialRect(:,i) = CenterRectOnPointd(eachrect, 880, ycor + 80);
 end 
-Screen('FillRect', window, white, centeredRect);
+Screen('FillRect', window, white, trialRect);
 
 
 
@@ -84,8 +80,8 @@ Screen('DrawDots', window, [1240; 1020], buttonSize, [1 1 0], [], 2);
 
 %figure out how to draw circle when click
 % r = 21  g =  10   b = 5    y = 28 keyNames
-clicks = 0 
-tries = 0 
+clicks = 0;
+tries = 0; 
 
 %while tries <= 10 
 %			if r clicked
