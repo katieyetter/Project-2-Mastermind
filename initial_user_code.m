@@ -18,7 +18,7 @@ for ii = 1:4
         color_vec(ii) = "orange";
     end
 end
-disp(color_vec);
+%disp(color_vec);
 numguesses = 1;
 code_guess = 0;
 
@@ -27,11 +27,12 @@ disp('I have chosen four colors.');
 disp('Guess the color and the position. You have ten tries.');
 
 while (numguesses < 11 && ~code_guess)
+    disp(append('Round ',string(numguesses)));
     disp('Please input your guess for the colors one at a time from left to right');
     disp('Colors may appear more than once and your choices are:');
     disp('red, blue, purple, and orange');
 
-    user_guess = strings(1,4);
+    user_guess = strings(1,4); %input user guesses as strings
     user_guess(1) = input('Color 1: ','s');
     user_guess(2) = input('Color 2: ','s');
     user_guess(3) = input('Color 3: ','s');
@@ -39,23 +40,18 @@ while (numguesses < 11 && ~code_guess)
     disp(user_guess)
 
     green_dots = zeros(1,4);
-    for ii = 1:4
+    for ii = 1:4 %find number of green dots - match color and position
         green_dots (ii) = strcmp(user_guess(ii),color_vec(ii));
     
     end
-    disp('green dots are')
-    disp(green_dots); %correct color and position
-    disp('num green is')
     num_green = sum(green_dots);
-    disp(num_green);
-
+    
     unmatch_guess = strings(1,(4-num_green));
     unmatch_vec = strings(1,(4-num_green));
     incorrect_vec = find(~green_dots);
-    disp('incorrect vec is');
-    disp(incorrect_vec);
 
     vec_count = 1;
+    
     for ii = 1:length(incorrect_vec)
         unmatch_guess(vec_count) = user_guess(incorrect_vec(ii));
         unmatch_vec (vec_count) = color_vec(incorrect_vec(ii));
@@ -63,6 +59,8 @@ while (numguesses < 11 && ~code_guess)
     end
 
     num_red = 0;
+    %for any that didn't match, determine number of red dots - right color,
+    %but in wrong position
     for ii = 1:length(unmatch_guess)
         for jj = 1:length(unmatch_vec)
             if strcmp(unmatch_guess(ii), unmatch_vec(jj))
@@ -71,21 +69,45 @@ while (numguesses < 11 && ~code_guess)
             end
         end
     end
-    disp('num green is');
-    disp(num_green);
-    disp('num red is');
-    disp(num_red);
+    
+    disp(append('number of green dots (correct color and position) is ', string(num_green)));
+    disp(append('number of red dots (correct color but not position) is ', string(num_red)));
     
     if num_green == 4
+        %if user guesses correctly
         disp('You won!');
         disp(append('It took you ',string(numguesses),' guesses.'));
         code_guess = 1;
         
+        
     elseif numguesses == 10
+        %if user fails to guess correctly after 10 rounds
         disp('You lost')
         disp('The correct sequence of colors is:')
         disp(color_vec);
         code_guess = 1;
+    end
+    if code_guess == 1
+        play_again = input('Would you like to play again? (y/n)','s');
+        if strcmp(play_again,'y')
+            code_guess = 0;
+            numguesses = 0;
+            color_vec = strings(1,4);
+            generatedcolors = randi (4,4,1);
+                for ii = 1:4
+                    if generatedcolors(ii) == 1
+                        color_vec(ii) = "red";
+                    elseif generatedcolors(ii) == 2
+                        color_vec(ii) = "blue";
+                    elseif generatedcolors(ii) == 3
+                        color_vec(ii) = "purple";
+                    elseif generatedcolors(ii) == 4
+                        color_vec(ii) = "orange";
+                    end
+                end
+        else
+            disp('Thank you for playing Mastermind. Goodbye!');
+        end
     end
     numguesses = numguesses + 1;
 end
