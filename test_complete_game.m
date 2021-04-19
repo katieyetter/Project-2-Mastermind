@@ -137,40 +137,13 @@ while (numguesses < 11 && ~code_guess)
         Screen('DrawDots', window, [880; 1020], buttonSize, [0 1 0], [], 2);
         Screen('DrawDots', window, [1060; 1020], buttonSize, [0 0 1], [], 2);
         Screen('DrawDots', window, [1240; 1020], buttonSize, [1 1 0], [], 2);
+        
+        colorpressed = [colorpressed, guessColors(ii)];
+        colorxpos = [colorxpos, xpos];
+        colorypos = [colorypos, ypos];
+        xpos = xpos + 100;
+        clicks = clicks + 1;
 
-
-        if keyCode(redKey) 
-            colorpressed = [colorpressed,'r'];
-            colorxpos = [colorxpos, xpos];
-            colorypos = [colorypos, ypos];
-            xpos = xpos + 100;
-            clicks = clicks + 1;
-
-        elseif keyCode(greenKey)  
-            colorpressed = [colorpressed,'g'];
-            colorxpos = [colorxpos, xpos];
-            colorypos = [colorypos, ypos];
-            xpos = xpos + 100;
-            clicks = clicks + 1;
-        elseif keyCode(yellowKey)
-            colorpressed = [colorpressed,'y'];
-            colorxpos = [colorxpos, xpos];
-            colorypos = [colorypos, ypos];
-            xpos = xpos + 100;
-            clicks = clicks + 1;
-
-        elseif keyCode(blueKey)
-            colorpressed = [colorpressed,'b'];
-            colorxpos = [colorxpos, xpos];
-            colorypos = [colorypos, ypos];
-            xpos = xpos + 100;
-            clicks = clicks + 1;
-        elseif keyCode(no)
-            colorpressed = colorpressed(1:end-4)%delete the last four
-            xpos = xpos - 400
-            clicks = clicks - 4;
-            tries = tries - 1;
-        end
 
         for n = 1:length(colorpressed)
             if colorpressed(n) == 'r'
@@ -204,6 +177,9 @@ while (numguesses < 11 && ~code_guess)
         %colors for this round
         if validInput ~= 4
             fprintf(2,'One or more entries was not a valid color.\nPlease re-enter colors, using only r b g or y\n\n');
+            xpos = xpos - 400
+            clicks = clicks - 4;
+            tries = tries - 1;
         elseif validInput == 4
             %Print colors and allow user to check that they inputted as
             %intended, with option to re-enter if not
