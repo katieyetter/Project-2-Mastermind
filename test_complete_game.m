@@ -279,7 +279,7 @@ while (numguesses < 11 && ~code_guess)
                 generatedColors(value) = setColors(pattern(value));
             end
         else
-            fprintf('Thank you for playing Mastermind. Goodbye!\n');
+            fprintf('Thank you for playing Mastermind. You may exit the game now. Goodbye!\n');
         end
     end
     numguesses = numguesses + 1;
