@@ -177,7 +177,7 @@ while (numguesses < 11 && ~code_guess)
         %colors for this round
         if validInput ~= 4
             fprintf(2,'One or more entries was not a valid color.\nPlease re-enter colors, using only r b g or y\n\n');
-            xpos = xpos - 400
+            xpos = xpos - 400;
             clicks = clicks - 4;
             tries = tries - 1;
         elseif validInput == 4
