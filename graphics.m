@@ -1,5 +1,7 @@
 %Written by Maria Rodriguez
 %debugged by Katie Yetter 
+
+% make other keys invalid, how to restart game when you lose
 % Clear the workspace and the screen
 sca;
 close all;
@@ -175,7 +177,6 @@ if tries >= 10 || youlose == 1
     %code to play again 
 end
 Screen('Flip', window);
-
 
 if youwin == 1
     Screen('TextFont', window, 'Courier');
