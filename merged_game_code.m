@@ -98,13 +98,14 @@ while (numguesses < 11 && ~code_guess)
         %if user guesses correctly
         fprintf('You won!\nIt took you %s guesses\n',string(numguesses));
         code_guess = 1;
-        
+        youwin == 1;   
     %Message if user fails to guess within 10 rounds
     elseif numguesses == 10
         %if user fails to guess correctly after 10 rounds
         fprintf('You lost\nThe correct sequence of colors is:\n')
         fprintf('%s ',generatedColors);
         code_guess = 1;
+        youlose == 1;
     end
     
     %Option to play again; if yes, generates new pattern of colors to guess
