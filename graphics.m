@@ -52,15 +52,8 @@ Screen('DrawDots', window, [1240; 1020], buttonSize, [1 1 0], [], 2);
 % r = 21  g =  10   b = 5    y = 28 keyNames
 clicks = 0;
 tries = 0;
-disp(tries)
-%feedback mxn
-one = [0,0,1];
-two = [0,1,0];
-three =[0,0,1];
-four = [0,0,1];
-feedbackvec = [one, two, three, four];
-feedbacktries =[];
-numcorrect = 2;
+
+
 %%assing keys to colors
 KbName('UnifyKeyNames');
 yellowKey = KbName('y');
@@ -69,6 +62,7 @@ greenKey = KbName('g');
 redKey = KbName('r');
 restartKey = KbName('p');
 no = KbName('n');
+exitKey = KbName('space');
 xpos = 710;
 ypos = 170;
 
@@ -175,18 +169,13 @@ xpos = 710;
 %Screen('Flip',window);
 end
 if tries >= 10 || youlose == 1
-    exitKey = KbName('space');%%check whether this is code for spacebar
-    playagainKey = KbName('p');
     Screen('TextFont', window, 'Courier');
     lost = 'You Lost! :(';
-    pa = '\n Press spacebar to exit screen \n Thanks for playing! \n Press P to play again';
     if keyCode(playagainKey)
-        %%code to restart game
-    elseif keyCode(exitKey)
-        sca;
+        %code to play again    
     end
-%text and instructions to play again
-    DrawFormattedText(window, [lost, pa], 'center', 'center', white);
+
+    DrawFormattedText(window, lost, 'center', 'center', white);
 end
 Screen('Flip', window);
 %%%add spacebar keycode
