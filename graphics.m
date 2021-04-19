@@ -62,9 +62,7 @@ yellowKey = KbName('y');
 blueKey = KbName('b');
 greenKey = KbName('g');
 redKey = KbName('r');
-restartKey = KbName('p');
 no = KbName('n');
-exitKey = KbName('space');
 xpos = 710;
 ypos = 170;
 
@@ -172,15 +170,12 @@ xpos = 710;
 end
 if tries >= 10 || youlose == 1
     Screen('TextFont', window, 'Courier');
-    lost = 'You Lost! :(';
-    if keyCode(playagainKey)
-        %code to play again    
-    end
-
+    lost = 'You Lost! :(';   
     DrawFormattedText(window, lost, 'center', 'center', white);
+    %code to play again 
 end
 Screen('Flip', window);
-%%%add spacebar keycode
+
 
 if youwin == 1
     Screen('TextFont', window, 'Courier');
