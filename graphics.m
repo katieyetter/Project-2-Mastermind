@@ -1,3 +1,5 @@
+%Written by Maria Rodriguez
+%debugged by Katie Yetter 
 % Clear the workspace and the screen
 sca;
 close all;
