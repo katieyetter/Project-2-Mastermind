@@ -144,21 +144,8 @@ while (numguesses < 11 && ~code_guess)
         xpos = xpos + 100;
         clicks = clicks + 1;
 
-
-        for n = 1:length(colorpressed)
-            if colorpressed(n) == 'r'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 0 0], [], 2);
-            elseif colorpressed(n) == 'g'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 1 0], [], 2);
-            elseif colorpressed(n) == 'y'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 1 0], [], 2);
-            elseif colorpressed(n) == 'b'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 0 1], [], 2);
-            end
-
         end
-        Screen('Flip', window);
-        WaitSecs(.3);
+        
       end
     
             validInput = 0;
@@ -189,7 +176,22 @@ while (numguesses < 11 && ~code_guess)
                     checked = 1;
                 end
         end
+    
+    for n = 1:length(colorpressed)
+            if colorpressed(n) == 'r'
+                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 0 0], [], 2);
+            elseif colorpressed(n) == 'g'
+                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 1 0], [], 2);
+            elseif colorpressed(n) == 'y'
+                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 1 0], [], 2);
+            elseif colorpressed(n) == 'b'
+                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 0 1], [], 2);
+            end
+            
     end
+    
+     Screen('Flip', window);
+     WaitSecs(.3);
     
     correctPosition = 0;
     greenDots = zeros(1,4);
