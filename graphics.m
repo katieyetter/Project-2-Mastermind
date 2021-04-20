@@ -22,24 +22,23 @@ grey = white / 2;
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 Screen('TextSize', window, 70);
 Screen('TextFont', window, 'Times');
-DrawFormattedText(window, 'Mastermind',...
-'center', screenYpixels * 0.1, white);
+DrawFormattedText(window, 'Mastermind','center', screenYpixels * 0.1, white);
 
 %board game 
 %%rectangle outline
 [xCenter, yCenter] = RectCenter(windowRect);
-baseRect = [0 0 600 840];
+baseRect = [0 0 400 640];
 Rect = nan(4, 3);
 Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter);
 Screen('FillRect', window, black, Rect);
 
 %%trial rectangles
-eachrect = [0 0 380 75];
-ycor = 170;
+eachrect = [0 0 380 55];
+ycor = yCenter * 0.3;
 trialRect = nan(4,3);
 for i = 1:10 
-    trialRect(:,i) = CenterRectOnPointd(eachrect, 866, ycor);
-    ycor = ycor + 80;
+    trialRect(:,i) = CenterRectOnPointd(eachrect, screenXpixels * 0.5, ycor);
+    ycor = ycor + 60;
 end 
 Screen('FillRect', window, white, trialRect);
 
@@ -47,10 +46,10 @@ Screen('FillRect', window, white, trialRect);
 %circles and keys that correspond to each color
 %"full red" is [1 0 0]. "Full green" [0 1 0] and "full blue" [0 0 1]
 buttonSize = 70;
-Screen('DrawDots', window, [700; 1020], buttonSize, [1 0 0], [], 2);
-Screen('DrawDots', window, [880; 1020], buttonSize, [0 1 0], [], 2);
-Screen('DrawDots', window, [1060; 1020], buttonSize, [0 0 1], [], 2);
-Screen('DrawDots', window, [1240; 1020], buttonSize, [1 1 0], [], 2);
+Screen('DrawDots', window, [screenXpixels * 0.2; screenYpixels * 0.95], buttonSize, [1 0 0], [], 2);
+Screen('DrawDots', window, [screenXpixels * 0.4; screenYpixels * 0.95], buttonSize, [0 1 0], [], 2);
+Screen('DrawDots', window, [screenXpixels * 0.6; screenYpixels * 0.95], buttonSize, [0 0 1], [], 2);
+Screen('DrawDots', window, [screenXpixels * 0.8; screenYpixels * 0.95], buttonSize, [1 1 0], [], 2);
 
 %game logistics
 % r = 21  g =  10   b = 5    y = 28 keyNames
@@ -65,8 +64,8 @@ blueKey = KbName('b');
 greenKey = KbName('g');
 redKey = KbName('r');
 no = KbName('n');
-xpos = 710;
-ypos = 170;
+xpos = screenXpixels * 0.38;
+ypos = yCenter * 0.3;
 
 
 Screen('Flip', window);
@@ -89,18 +88,18 @@ DrawFormattedText(window, 'Mastermind',...
 %board game 
 %%rectangle outline
 [xCenter, yCenter] = RectCenter(windowRect);
-baseRect = [0 0 600 840];
+baseRect = [0 0 400 640];
 Rect = nan(4, 3);
 Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter);
 Screen('FillRect', window, black, Rect);
 
 %%trial rectangles
-eachrect = [0 0 380 75];
-ycor = 170;
+eachrect = [0 0 380 55];
+ycor = yCenter * 0.3;
 trialRect = nan(4,3);
 for i = 1:10 
-    trialRect(:,i) = CenterRectOnPointd(eachrect, 866, ycor);
-    ycor = ycor + 80;
+    trialRect(:,i) = CenterRectOnPointd(eachrect, screenXpixels * 0.5, ycor);
+    ycor = ycor + 60;
 end 
 Screen('FillRect', window, white, trialRect);
 
@@ -108,10 +107,10 @@ Screen('FillRect', window, white, trialRect);
 %circles and keys that correspond to each color
 %"full red" is [1 0 0]. "Full green" [0 1 0] and "full blue" [0 0 1]
 buttonSize = 70;
-Screen('DrawDots', window, [700; 1020], buttonSize, [1 0 0], [], 2);
-Screen('DrawDots', window, [880; 1020], buttonSize, [0 1 0], [], 2);
-Screen('DrawDots', window, [1060; 1020], buttonSize, [0 0 1], [], 2);
-Screen('DrawDots', window, [1240; 1020], buttonSize, [1 1 0], [], 2);
+Screen('DrawDots', window, [screenXpixels * 0.2; screenYpixels * 0.95], buttonSize, [1 0 0], [], 2);
+Screen('DrawDots', window, [screenXpixels * 0.4; screenYpixels * 0.95], buttonSize, [0 1 0], [], 2);
+Screen('DrawDots', window, [screenXpixels * 0.6;screenYpixels * 0.95], buttonSize, [0 0 1], [], 2);
+Screen('DrawDots', window, [screenXpixels * 0.8;screenYpixels * 0.95], buttonSize, [1 1 0], [], 2);
 
 
 if keyCode(redKey) 
@@ -148,6 +147,7 @@ elseif keyCode(no)
 end
 
 for n = 1:length(colorpressed)
+    buttonSize = 50;
     if colorpressed(n) == 'r'
         Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 0 0], [], 2);
     elseif colorpressed(n) == 'g'
@@ -162,11 +162,11 @@ end
 Screen('Flip', window);
 WaitSecs(.3);
 end
-ypos = ypos + 80;
+ypos = ypos + 60;
 tries = tries + 1;
 clicks = 0;
 disp(tries)
-xpos = 710;
+xpos = screenXpixels * 0.38;
 
 %Screen('Flip',window);
 end
