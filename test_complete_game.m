@@ -1,5 +1,5 @@
-%Merge of code written by Katie Yetter and Madison Ewing
-%April 14, 2021
+%Merge of code written by Katie Yetter, Maria Rodriguez, and Madison Ewing
+%April 19, 2021
 
 % Clear the workspace and the screen
 sca;
@@ -263,6 +263,14 @@ while (numguesses < 11 && ~code_guess)
             code_guess = 0;
             numguesses = 0;
             
+            xpos = 710;
+            ypos = 170-80;
+            tries = -1;
+            
+            %%how to draw circles when key pressed in correct location 
+            colorpressed = [];
+            colorxpos = [];
+            colorypos = [];
             DrawFormattedText(window, [lost, pa], 'center', 'center', white);
             Screen('Flip', window);
             %%%add spacebar keycode
