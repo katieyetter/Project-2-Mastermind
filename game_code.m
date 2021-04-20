@@ -237,7 +237,6 @@ while (numguesses < 11 && ~code_guess)
         numguesses = string(numguesses);
         DrawFormattedText(window, [win,numguesses], 'center', 'center', white);
         tries = 0;
-    end
         
     %Message if user fails to guess within 10 rounds
     elseif numguesses == 10
@@ -256,7 +255,7 @@ while (numguesses < 11 && ~code_guess)
         elseif keyCode(exitKey)
             sca;
         end
-    
+    end
     %Option to play again; if yes, generates new pattern of colors to guess
     if code_guess == 1
         play_again = input('\nWould you like to play again? (y/n):','s');
