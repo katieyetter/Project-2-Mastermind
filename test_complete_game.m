@@ -221,12 +221,6 @@ while (numguesses < 11 && ~code_guess)
             end
         end
     end
-    
-    ypos = ypos + 80;
-    tries = tries + 1;
-    clicks = 0;
-    disp(tries)
-    xpos = 710;
 
     %Output number of green and red dots to user
     fprintf('\nNumber of green dots (correct color and position) is %s \n', string(correctPosition));
@@ -283,6 +277,11 @@ while (numguesses < 11 && ~code_guess)
         end
     end
     numguesses = numguesses + 1;
+    ypos = ypos + 80;
+    tries = tries + 1;
+    clicks = 0;
+    disp(tries)
+    xpos = 710;
     end
 end
 Screen('Flip', window);
