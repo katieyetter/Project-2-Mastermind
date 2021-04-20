@@ -237,6 +237,7 @@ while (numguesses < 11 && ~code_guess)
         numguesses = string(numguesses);
         DrawFormattedText(window, [win,numguesses], 'center', 'center', white);
         tries = 0;
+    end
         
     %Message if user fails to guess within 10 rounds
     elseif numguesses == 10
@@ -289,6 +290,5 @@ while (numguesses < 11 && ~code_guess)
     tries = tries + 1;
     clicks = 0;
     xpos = screenXpixels * 0.38;
-    end
 end
 Screen('Flip', window);
