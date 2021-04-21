@@ -21,18 +21,19 @@ grey = white / 2;
 [screenXpixels, screenYpixels] = Screen('WindowSize', window);
 Screen('TextSize', window, 70);
 Screen('TextFont', window, 'Times');
-DrawFormattedText(window, 'Mastermind','center', screenYpixels * 0.1, white);
+DrawFormattedText(window, 'Mastermind',...
+'center', screenYpixels * 0.1, white);
 
 %board game 
 %%rectangle outline
 [xCenter, yCenter] = RectCenter(windowRect);
 baseRect = [0 0 400 640];
 Rect = nan(4, 3);
-Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter - 30);
+Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter);
 Screen('FillRect', window, black, Rect);
 
 %%trial rectangles
-eachrect = [0 0 380 55];
+eachrect = [0 0 380 75];
 ycor = yCenter * 0.3;
 trialRect = nan(4,3);
 for i = 1:10 
@@ -92,7 +93,7 @@ fprintf('Welcome to Mastermind.\nI have chosen four colors.\nGuess the color and
 
 while (numguesses < 11 && ~code_guess)
     checked = 0;
- 
+    
     while ~checked
         fprintf('Round %s \nPlease input your guess for the colors one at a time from left to right.\nColors may appear more than once and your choices are:\nr = red, b = blue, g = green, and y = yellow\n', string(numguesses));
         
@@ -114,7 +115,7 @@ while (numguesses < 11 && ~code_guess)
         [xCenter, yCenter] = RectCenter(windowRect);
         baseRect = [0 0 400 640];
         Rect = nan(4, 3);
-        Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter - 30);
+        Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter);
         Screen('FillRect', window, black, Rect);
 
         %%trial rectangles
@@ -176,12 +177,9 @@ while (numguesses < 11 && ~code_guess)
         %colors for this round
         if validInput ~= 4
             fprintf(2,'One or more entries was not a valid color.\nPlease re-enter colors, using only r b g or y\n\n');
-            colorpressed = colorpressed(1:end-4);
             xpos = xpos - 400;
             clicks = clicks - 4;
             tries = tries - 1;
-            colorxpos(end-3:end) = [];
-            colorypos(end-3:end) = [];
         elseif validInput == 4
             %Print colors and allow user to check that they inputted as
             %intended, with option to re-enter if not
@@ -189,63 +187,8 @@ while (numguesses < 11 && ~code_guess)
             colorCheck = input('\nAre these the correct colors you want to guess? (type c if correct, n if incorrect)', 's');
                 if strcmp(colorCheck,'c')
                     checked = 1;
-                else
-                    colorpressed = colorpressed(1:end-4);
-                    xpos = xpos - 400;
-                    clicks = clicks - 4;
-                    tries = tries - 1;
-                    colorxpos(end-3:end) = [];
-                    colorypos(end-3:end) = [];
                 end
         end
-%redraw
-    %board game 
-        %display the name of game on top of the screen
-        %%store pixels of screen
-        [screenXpixels, screenYpixels] = Screen('WindowSize', window);
-        Screen('TextSize', window, 70);
-        Screen('TextFont', window, 'Times');
-        DrawFormattedText(window, 'Mastermind',...
-        'center', screenYpixels * 0.1, white);
-        %%rectangle outline
-        [xCenter, yCenter] = RectCenter(windowRect);
-        baseRect = [0 0 400 640];
-        Rect = nan(4, 3);
-        Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter);
-        Screen('FillRect', window, black, Rect);
-
-        %%trial rectangles
-        eachrect = [0 0 380 55];
-        ycor = yCenter * 0.3;
-        trialRect = nan(4,3);
-        for i = 1:10 
-            trialRect(:,i) = CenterRectOnPointd(eachrect, screenXpixels * 0.5, ycor);
-            ycor = ycor + 60;
-        end 
-        Screen('FillRect', window, white, trialRect);
-         %circles and keys that correspond to each color
-        %"full red" is [1 0 0]. "Full green" [0 1 0] and "full blue" [0 0 1]
-        buttonSize = 70;
-        Screen('DrawDots', window, [screenXpixels * 0.2; screenYpixels * 0.95], buttonSize, [1 0 0], [], 2);
-        Screen('DrawDots', window, [screenXpixels * 0.4; screenYpixels * 0.95], buttonSize, [0 1 0], [], 2);
-        Screen('DrawDots', window, [screenXpixels * 0.6; screenYpixels * 0.95], buttonSize, [0 0 1], [], 2);
-        Screen('DrawDots', window, [screenXpixels * 0.8; screenYpixels * 0.95], buttonSize, [1 1 0], [], 2);
-        
-        for n = 1:length(colorpressed)
-            buttonSize = 50;
-            if colorpressed(n) == 'r'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 0 0], [], 2);
-            elseif colorpressed(n) == 'g'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 1 0], [], 2);
-            elseif colorpressed(n) == 'y'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 1 0], [], 2);
-            elseif colorpressed(n) == 'b'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 0 1], [], 2);
-            end
-
-        end
-        Screen('Flip', window);
-        WaitSecs(.3);
     end
     
     correctPosition = 0;
@@ -281,57 +224,7 @@ while (numguesses < 11 && ~code_guess)
 
     %Output number of green and red dots to user
     fprintf('\nNumber of green dots (correct color and position) is %s \n', string(correctPosition));
-    script = append('Number of green dots (correct color and position) is \n', string(correctPosition));
     fprintf('Number of red dots (correct color but not position) is %s \n\n', string(correctColor));
-
-            %redraw everything 
-        %board game 
-        %display the name of game on top of the screen
-        %%store pixels of screen
-        [screenXpixels, screenYpixels] = Screen('WindowSize', window);
-        Screen('TextSize', window, 70);
-        Screen('TextFont', window, 'Times');
-        DrawFormattedText(window, 'Mastermind',...
-        'center', screenYpixels * 0.1, white);
-        %%rectangle outline
-        [xCenter, yCenter] = RectCenter(windowRect);
-        baseRect = [0 0 400 640];
-        Rect = nan(4, 3);
-        Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter - 30);
-        Screen('FillRect', window, black, Rect);
-
-        %%trial rectangles
-        eachrect = [0 0 380 55];
-        ycor = yCenter * 0.3;
-        trialRect = nan(4,3);
-        for i = 1:10 
-            trialRect(:,i) = CenterRectOnPointd(eachrect, screenXpixels * 0.5, ycor);
-            ycor = ycor + 60;
-        end 
-        Screen('FillRect', window, white, trialRect);
-         %circles and keys that correspond to each color
-        %"full red" is [1 0 0]. "Full green" [0 1 0] and "full blue" [0 0 1]
-        buttonSize = 70;
-        Screen('DrawDots', window, [screenXpixels * 0.2; screenYpixels * 0.95], buttonSize, [1 0 0], [], 2);
-        Screen('DrawDots', window, [screenXpixels * 0.4; screenYpixels * 0.95], buttonSize, [0 1 0], [], 2);
-        Screen('DrawDots', window, [screenXpixels * 0.6; screenYpixels * 0.95], buttonSize, [0 0 1], [], 2);
-        Screen('DrawDots', window, [screenXpixels * 0.8; screenYpixels * 0.95], buttonSize, [1 1 0], [], 2);
-        
-        for n = 1:length(colorpressed)
-            buttonSize = 50;
-            if colorpressed(n) == 'r'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 0 0], [], 2);
-            elseif colorpressed(n) == 'g'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 1 0], [], 2);
-            elseif colorpressed(n) == 'y'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 1 0], [], 2);
-            elseif colorpressed(n) == 'b'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 0 1], [], 2);
-            end
-
-        end
-        Screen('Flip', window);
-        WaitSecs(.3);
     
     %Message if user wins with number of rounds it took
     if correctPosition == 4
@@ -396,6 +289,5 @@ while (numguesses < 11 && ~code_guess)
     tries = tries + 1;
     clicks = 0;
     xpos = screenXpixels * 0.38;
-    
 end
 Screen('Flip', window);
