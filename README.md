@@ -3,8 +3,7 @@ CLPS 0950 Project 2
 
 1. In order to run our game, you must download PsychToolBox, an add-on to MatLab.
 2.  You will also need a keyboard! Make sure your CAPSLOCK is off!
-    ***Game will only display correctly on a monitor with a pixel screen of 1920 X 1080 ***
-   --Game will run on all computers, but may not fit the screen if two monitors are not used.--
+   --Game will run on all computers, but may not fit the screen if a large external monitor is used.--
 
 For those of you that enjoy strategy games, you've come to the right place! "Mastermind" was a game orignally created in 1972 for two-players.
 Essentially, Mastermind is  a code-breaking game using different colored pegs on a board.  
