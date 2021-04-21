@@ -289,9 +289,8 @@ while (numguesses < 11 && ~code_guess)
         code_guess = 1;
         youwin = 1;   
         Screen('TextFont', window, 'Courier');
-        win = 'You Won! :) \n Number of tries:';
-        numguesses = string(numguesses);
-        DrawFormattedText(window, [win,numguesses], 'center', 'center', white);
+        DrawFormattedText(window, 'You Won! :)', 'center', 'center', white);
+        Screen('Flip', window);
         tries = 0;
         
     %Message if user fails to guess within 10 rounds
