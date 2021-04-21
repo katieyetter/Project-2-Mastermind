@@ -33,7 +33,7 @@ Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter -30);
 Screen('FillRect', window, black, Rect);
 
 %%trial rectangles
-eachrect = [0 0 380 75];
+eachrect = [0 0 380 65];
 ycor = yCenter * 0.3;
 trialRect = nan(4,3);
 for i = 1:10 
