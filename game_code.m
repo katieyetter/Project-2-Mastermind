@@ -300,17 +300,10 @@ while (numguesses < 11 && ~code_guess)
         fprintf('You lost\nThe correct sequence of colors is:\n')
         fprintf('%s ',generatedColors);
         code_guess = 1;
-        youlose = 1;
-        exitKey = KbName('space');%%check whether this is code for spacebar
-        playagainKey = KbName('p');
         Screen('TextFont', window, 'Courier');
-        lost = 'You Lost! :(';
-        pa = '\n Press spacebar to exit screen \n Thanks for playing! \n Press P to play again';
-        if keyCode(playagainKey)
-            %%code to restart game
-        elseif keyCode(exitKey)
-            sca;
-        end
+        DrawFormattedText(window, 'You Lost! :(', 'center', 'center', white);
+        Screen('Flip', window);
+       
     end
     %Option to play again; if yes, generates new pattern of colors to guess
     if code_guess == 1
@@ -327,9 +320,55 @@ while (numguesses < 11 && ~code_guess)
             colorpressed = [];
             colorxpos = [];
             colorypos = [];
-            DrawFormattedText(window, [lost, pa], 'center', 'center', white);
+            %display the name of game on top of the screen
+            %%store pixels of screen
+            [screenXpixels, screenYpixels] = Screen('WindowSize', window);
+            Screen('TextSize', window, 70);
+            Screen('TextFont', window, 'Times');
+            DrawFormattedText(window, 'Mastermind',...
+            'center', screenYpixels * 0.1, white);
+
+            %board game 
+            %%rectangle outline
+            [xCenter, yCenter] = RectCenter(windowRect);
+            baseRect = [0 0 400 640];
+            Rect = nan(4, 3);
+            Rect = CenterRectOnPointd(baseRect, screenXpixels * 0.5, yCenter -30);
+            Screen('FillRect', window, black, Rect);
+
+            %%trial rectangles
+            eachrect = [0 0 380 55];
+            ycor = yCenter * 0.3;
+            trialRect = nan(4,3);
+            for i = 1:10 
+                trialRect(:,i) = CenterRectOnPointd(eachrect, screenXpixels * 0.5, ycor);
+                ycor = ycor + 60;
+            end 
+            Screen('FillRect', window, white, trialRect);
+
+
+            %circles and keys that correspond to each color
+            %"full red" is [1 0 0]. "Full green" [0 1 0] and "full blue" [0 0 1]
+            buttonSize = 70;
+            Screen('DrawDots', window, [screenXpixels * 0.2; screenYpixels * 0.95], buttonSize, [1 0 0], [], 2);
+            Screen('DrawDots', window, [screenXpixels * 0.4; screenYpixels * 0.95], buttonSize, [0 1 0], [], 2);
+            Screen('DrawDots', window, [screenXpixels * 0.6; screenYpixels * 0.95], buttonSize, [0 0 1], [], 2);
+            Screen('DrawDots', window, [screenXpixels * 0.8; screenYpixels * 0.95], buttonSize, [1 1 0], [], 2);
+
+            for n = 1:length(colorpressed)
+                    buttonSize = 50;
+                    if colorpressed(n) == 'r'
+                        Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 0 0], [], 2);
+                    elseif colorpressed(n) == 'g'
+                        Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 1 0], [], 2);
+                    elseif colorpressed(n) == 'y'
+                        Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 1 0], [], 2);
+                    elseif colorpressed(n) == 'b'
+                        Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 0 1], [], 2);
+                    end
+            end
             Screen('Flip', window);
-            %%%add spacebar keycode
+           
             
             pattern = randi(length(setColors), 1, 4);
             generatedColors = strings(1,4);
