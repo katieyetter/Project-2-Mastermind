@@ -1,5 +1,5 @@
-%Merge of code written by Katie Yetter and Madison Ewing
-%April 14, 2021
+%Merge of code written by Katie Yetter, Maria Rodriguez, and Madison Ewing
+%April 19, 2021
 
 % Clear the workspace and the screen
 sca;
@@ -137,55 +137,15 @@ while (numguesses < 11 && ~code_guess)
         Screen('DrawDots', window, [880; 1020], buttonSize, [0 1 0], [], 2);
         Screen('DrawDots', window, [1060; 1020], buttonSize, [0 0 1], [], 2);
         Screen('DrawDots', window, [1240; 1020], buttonSize, [1 1 0], [], 2);
-
-
-        if keyCode(redKey) 
-            colorpressed = [colorpressed,'r'];
-            colorxpos = [colorxpos, xpos];
-            colorypos = [colorypos, ypos];
-            xpos = xpos + 100;
-            clicks = clicks + 1;
-
-        elseif keyCode(greenKey)  
-            colorpressed = [colorpressed,'g'];
-            colorxpos = [colorxpos, xpos];
-            colorypos = [colorypos, ypos];
-            xpos = xpos + 100;
-            clicks = clicks + 1;
-        elseif keyCode(yellowKey)
-            colorpressed = [colorpressed,'y'];
-            colorxpos = [colorxpos, xpos];
-            colorypos = [colorypos, ypos];
-            xpos = xpos + 100;
-            clicks = clicks + 1;
-
-        elseif keyCode(blueKey)
-            colorpressed = [colorpressed,'b'];
-            colorxpos = [colorxpos, xpos];
-            colorypos = [colorypos, ypos];
-            xpos = xpos + 100;
-            clicks = clicks + 1;
-        elseif keyCode(no)
-            colorpressed = colorpressed(1:end-4)%delete the last four
-            xpos = xpos - 400
-            clicks = clicks - 4;
-            tries = tries - 1;
-        end
-
-        for n = 1:length(colorpressed)
-            if colorpressed(n) == 'r'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 0 0], [], 2);
-            elseif colorpressed(n) == 'g'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 1 0], [], 2);
-            elseif colorpressed(n) == 'y'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 1 0], [], 2);
-            elseif colorpressed(n) == 'b'
-                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 0 1], [], 2);
-            end
+        
+        colorpressed = [colorpressed, guessColors(ii)];
+        colorxpos = [colorxpos, xpos];
+        colorypos = [colorypos, ypos];
+        xpos = xpos + 100;
+        clicks = clicks + 1;
 
         end
-        Screen('Flip', window);
-        WaitSecs(.3);
+        
       end
     
             validInput = 0;
@@ -204,6 +164,9 @@ while (numguesses < 11 && ~code_guess)
         %colors for this round
         if validInput ~= 4
             fprintf(2,'One or more entries was not a valid color.\nPlease re-enter colors, using only r b g or y\n\n');
+            xpos = xpos - 400;
+            clicks = clicks - 4;
+            tries = tries - 1;
         elseif validInput == 4
             %Print colors and allow user to check that they inputted as
             %intended, with option to re-enter if not
@@ -213,7 +176,22 @@ while (numguesses < 11 && ~code_guess)
                     checked = 1;
                 end
         end
+    
+    for n = 1:length(colorpressed)
+            if colorpressed(n) == 'r'
+                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 0 0], [], 2);
+            elseif colorpressed(n) == 'g'
+                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 1 0], [], 2);
+            elseif colorpressed(n) == 'y'
+                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [1 1 0], [], 2);
+            elseif colorpressed(n) == 'b'
+                Screen('DrawDots', window, [colorxpos(n); colorypos(n)], buttonSize, [0 0 1], [], 2);
+            end
+            
     end
+    
+     Screen('Flip', window);
+     WaitSecs(.3);
     
     correctPosition = 0;
     greenDots = zeros(1,4);
@@ -245,12 +223,6 @@ while (numguesses < 11 && ~code_guess)
             end
         end
     end
-    
-    ypos = ypos + 80;
-    tries = tries + 1;
-    clicks = 0;
-    disp(tries)
-    xpos = 710;
 
     %Output number of green and red dots to user
     fprintf('\nNumber of green dots (correct color and position) is %s \n', string(correctPosition));
@@ -293,6 +265,14 @@ while (numguesses < 11 && ~code_guess)
             code_guess = 0;
             numguesses = 0;
             
+            xpos = 710;
+            ypos = 170-80;
+            tries = -1;
+            
+            %%how to draw circles when key pressed in correct location 
+            colorpressed = [];
+            colorxpos = [];
+            colorypos = [];
             DrawFormattedText(window, [lost, pa], 'center', 'center', white);
             Screen('Flip', window);
             %%%add spacebar keycode
@@ -303,10 +283,15 @@ while (numguesses < 11 && ~code_guess)
                 generatedColors(value) = setColors(pattern(value));
             end
         else
-            fprintf('Thank you for playing Mastermind. Goodbye!\n');
+            fprintf('Thank you for playing Mastermind. You may exit the game now. Goodbye!\n');
         end
     end
     numguesses = numguesses + 1;
+    ypos = ypos + 80;
+    tries = tries + 1;
+    clicks = 0;
+    disp(tries)
+    xpos = 710;
     end
 end
 Screen('Flip', window);
