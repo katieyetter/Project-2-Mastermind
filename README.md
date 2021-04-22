@@ -17,6 +17,6 @@ The computer has been coded to generate a random array of 4 colored "pegs." Your
 You will have 10 attempts to guess and the computer will notify you of your correct and incorrect answers. In doing so, it will keep score of how many 
 attempts you have used, as well as what pegs you have guessed correctly. 
 
-To play, type the color you would like to guess: y = yellow, g = green, b = blue, and r = red and hit enter after each color. If the correct colors show up on the board, press 'c' and enter; if not press 'n' and enter and you can re-type the colors for that round.
+To play, type the color you would like to guess: y = yellow, g = green, b = blue, and r = red and hit enter after each color. If the correct colors show up on the board, press 'c' and enter; if not press 'n' and enter and you can re-type the colors for that round. To play, run the game_code script.
 
 Enjoy the strategic world of MasterMind!
