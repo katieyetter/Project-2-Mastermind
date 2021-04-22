@@ -5,6 +5,7 @@ CLPS 0950 Project 2
 2.  You will also need a keyboard! Make sure your CAPSLOCK is off!
    --Game will run on all computers, but may not fit the screen if a large external monitor is used.--
 3. Use game_code to play the game!
+4. The rules appear in the command window.
 
 For those of you that enjoy strategy games, you've come to the right place! "Mastermind" was a game orignally created in 1972 for two-players.
 Essentially, Mastermind is  a code-breaking game using different colored pegs on a board.  
