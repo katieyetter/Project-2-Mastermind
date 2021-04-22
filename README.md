@@ -17,7 +17,4 @@ The computer has been coded to generate a random array of 4 colored "pegs." Your
 You will have 10 attempts to guess and the computer will notify you of your correct and incorrect answers. In doing so, it will keep score of how many 
 attempts you have used, as well as what pegs you have guessed correctly. 
 
-Don't worry, you will be prompted with the rules again when you play! 
-*You can also hit 'h' on the keyboard to view the rules anytime.
-
 Enjoy the strategic world of MasterMind!
